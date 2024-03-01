@@ -41,7 +41,7 @@ class Lst:
         lst += [num]
         self.sort(lst)
 
-    def rearrange_items(self):
+    def rearrange_items(self, showP=True):
         for number in self.list:
             try:
                 number = int(number)
@@ -56,9 +56,9 @@ class Lst:
                     else:
                         self.add(number, -1)
             except ValueError:
-                print("Bad number element:", number, "| Skipping...")
+                if showP: print("Bad number element:", number, "| Skipping...")
 
-    def change_all_type_to_num(self):
+    def change_all_type_to_num(self, showP=True):
         for item in self.sort_method.copy():
             try:
                 # print(int(item))
@@ -70,7 +70,7 @@ class Lst:
                     num_typ = self.dct[item]
                     self.sort_method[self.sort_method.index(item)] = num_typ
                 except KeyError:
-                    print("Bad key element:", item, "| Skipping...")
+                    if showP: print("Bad key element:", item, "| Skipping...")
                     self.sort_method.pop(self.sort_method.index(item))
 
     def create_position(self, lst_num, need_split=True):
@@ -86,20 +86,20 @@ class Lst:
             else:
                 self.create_position(self.sort_method[pos])
     
-    def create_defaults_positions(self):
-        print("The list is empty because of bad type of sort entered | Using defaults...")
+    def create_defaults_positions(self, showP=True):
+        if showP: print("The list is empty because of bad type of sort entered | Using defaults...")
         for pos in [-2, 1, 2, -1]:
             if pos == -1:
                 self.create_position(pos, False)
             else:
                 self.create_position(pos)
 
-    def start_app(self):
-        self.rearrange_items()
-        self.change_all_type_to_num()
+    def start_app(self, showP=True):
+        self.rearrange_items(showP)
+        self.change_all_type_to_num(showP)
         self.create_all_positions()
         if self.lst == []:
-            self.create_defaults_positions()
+            self.create_defaults_positions(showP)
             
 
     def display(self):
