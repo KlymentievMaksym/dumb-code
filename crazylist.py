@@ -1,4 +1,3 @@
-# import random
 import sys
 
 class Lst:
@@ -9,7 +8,6 @@ class Lst:
         self.dct = {"negeven":-2, "negodd":-1, "odd":1, "even":2}
 
     def ask_for_input(self, list='', sort_method='', needed_auto=False):
-        # random.sample(range(-100, 100), 25) 
         if not needed_auto:
             self.list = input("Enter your list of INTEGER Numbers here (empty to exit): ").split()
         else:
@@ -61,12 +59,10 @@ class Lst:
     def change_all_type_to_num(self, showP=True):
         for item in self.sort_method.copy():
             try:
-                # print(int(item))
                 num_typ = int(item)
                 self.sort_method[self.sort_method.index(item)] = num_typ
             except ValueError:
                 try:
-                    # print(self.dct[item], item)
                     num_typ = self.dct[item]
                     self.sort_method[self.sort_method.index(item)] = num_typ
                 except KeyError:
