@@ -1,14 +1,21 @@
-import random
+# import random
+import sys
 
 class Lst:
     def __init__(self):
         self.lst = []
-        # self.lst_even = []
-        # self.lst_neven = []
-        # self.lst_odd = []
-        # self.lst_nodd = []
+        
         self.lst_dct = {-2:[], -1:[], 1:[], 2:[]}
         self.dct = {"negeven":-2, "negodd":-1, "odd":1, "even":2}
+
+    def ask_for_input(self):
+        # random.sample(range(-100, 100), 25) 
+        self.list = input("Enter your list of INTEGER Numbers here (empty to exit): ").split()
+        if self.list == []:
+            sys.exit()
+        self.sort_method = input("Enter your type of sort here (default is 'negeven odd even negodd'|'-2 1 2 -1'): ").split()
+        if self.sort_method == []:
+            sys.exit()
 
     def sort(self, lst):
         killer=1
@@ -26,23 +33,60 @@ class Lst:
         lst += [num]
         self.sort(lst)
 
+    def rearrange_items(self):
+        for number in self.list:
+            try:
+                number = int(number)
+                if number % 2 == 0:
+                    if number == abs(number):
+                        self.add(number, 2)
+                    else:
+                        self.add(number, -2)
+                else:
+                    if number == abs(number):
+                        self.add(number, 1)
+                    else:
+                        self.add(number, -1)
+            except ValueError:
+                print("Bad number element:", number, "| Skipping...")
+
+    def change_all_type_to_num(self):
+        for item in self.sort_method.copy():
+            try:
+                # print(int(item))
+                num_typ = int(item)
+                self.sort_method[self.sort_method.index(item)] = num_typ
+            except ValueError:
+                try:
+                    # print(self.dct[item], item)
+                    num_typ = self.dct[item]
+                    self.sort_method[self.sort_method.index(item)] = num_typ
+                except KeyError:
+                    print("Bad key element:", item, "| Skipping...")
+                    self.sort_method.pop(self.sort_method.index(item))
+
     def create_position(self, lst_num, need_split=True):
         if need_split:
             self.lst.extend(self.lst_dct[lst_num] + ['|'])
         else:
             self.lst.extend(self.lst_dct[lst_num])
     
-    def start(self, lst_of_type):
-        for item in lst_of_type:
-            # print(lst_of_type)
-            try:
-                num_typ = int(item)
-            except ValueError:
-                num_typ = self.dct[item]
-            lst_of_type[lst_of_type.index(item)] = num_typ
-        for pos in range(len(lst_of_type)-1):
-            self.create_position(lst_of_type[pos])
-        self.create_position(lst_of_type[-1], False)
+    def start_app(self):
+        lst.rearrange_items()
+        lst.change_all_type_to_num()
+        for pos in range(len(self.sort_method)):
+            if pos == len(self.sort_method)-1:
+                self.create_position(self.sort_method[pos], False)
+            else:
+                self.create_position(self.sort_method[pos])
+        if self.lst == []:
+            print("The list is empty because of bad type of sort entered | Using defaults...")
+            for pos in [-2, 1, 2, -1]:
+                if pos == -1:
+                    self.create_position(pos, False)
+                else:
+                    self.create_position(pos)
+        
 
     def display(self):
         self.lst_str = self.lst.copy()
@@ -51,23 +95,9 @@ class Lst:
         print("[" + " ".join(self.lst_str) + "]")
 
 
-lst = random.sample(range(-100, 100), 25)#input("Enter your list of INTEGER Numbers here (only numbers): ").split()
-sort_method = input("Enter your type of sort here (default is 'negeven odd even negodd'|'-2 1 2 -1'): ").split()
-
-lst_sorted = Lst()
-
-for number in lst:
-    number = int(number)
-    if number % 2 == 0:
-        if number == abs(number):
-            lst_sorted.add(number, 2)
-        else:
-            lst_sorted.add(number, -2)
-    else:
-        if number == abs(number):
-            lst_sorted.add(number, 1)
-        else:
-            lst_sorted.add(number, -1)
-    
-lst_sorted.start(sort_method)
-lst_sorted.display()
+if __name__ == "__main__":
+    while True:
+        lst = Lst()
+        lst.ask_for_input()
+        lst.start_app()
+        lst.display()
