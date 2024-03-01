@@ -26,4 +26,4 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: "Running unit test..."
-        run: python -m ~/test_crazylist.py
+        run: python test_crazylist.py
