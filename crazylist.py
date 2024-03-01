@@ -71,22 +71,28 @@ class Lst:
         else:
             self.lst.extend(self.lst_dct[lst_num])
     
-    def start_app(self):
-        lst.rearrange_items()
-        lst.change_all_type_to_num()
+    def create_all_positions(self):
         for pos in range(len(self.sort_method)):
             if pos == len(self.sort_method)-1:
                 self.create_position(self.sort_method[pos], False)
             else:
                 self.create_position(self.sort_method[pos])
+    
+    def create_defaults_positions(self):
+        print("The list is empty because of bad type of sort entered | Using defaults...")
+        for pos in [-2, 1, 2, -1]:
+            if pos == -1:
+                self.create_position(pos, False)
+            else:
+                self.create_position(pos)
+
+    def start_app(self):
+        lst.rearrange_items()
+        lst.change_all_type_to_num()
+        lst.create_all_positions()
         if self.lst == []:
-            print("The list is empty because of bad type of sort entered | Using defaults...")
-            for pos in [-2, 1, 2, -1]:
-                if pos == -1:
-                    self.create_position(pos, False)
-                else:
-                    self.create_position(pos)
-        
+            lst.create_defaults_positions()
+            
 
     def display(self):
         self.lst_str = self.lst.copy()
