@@ -99,7 +99,7 @@ class Lst:
         self.change_all_type_to_num()
         self.create_all_positions()
         if self.lst == []:
-            lst.create_defaults_positions()
+            self.create_defaults_positions()
             
 
     def display(self):
