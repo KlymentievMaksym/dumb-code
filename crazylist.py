@@ -8,12 +8,19 @@ class Lst:
         self.lst_dct = {-2:[], -1:[], 1:[], 2:[]}
         self.dct = {"negeven":-2, "negodd":-1, "odd":1, "even":2}
 
-    def ask_for_input(self):
+    def ask_for_input(self, list='', sort_method='', needed_auto=False):
         # random.sample(range(-100, 100), 25) 
-        self.list = input("Enter your list of INTEGER Numbers here (empty to exit): ").split()
+        if not needed_auto:
+            self.list = input("Enter your list of INTEGER Numbers here (empty to exit): ").split()
+        else:
+            self.list = list.split()
         if self.list == []:
             sys.exit()
-        self.sort_method = input("Enter your type of sort here (default is 'negeven odd even negodd'|'-2 1 2 -1'): ").split()
+        
+        if not needed_auto:
+            self.sort_method = input("Enter your type of sort here (default is 'negeven odd even negodd'|'-2 1 2 -1'): ").split()
+        else:
+            self.sort_method = sort_method.split()
         if self.sort_method == []:
             sys.exit()
 
@@ -27,6 +34,7 @@ class Lst:
                     lst[index], lst[index+1] = lst[index+1], lst[index]
                     was_changed = True
             killer += 1
+        return lst
 
     def add(self, num, lst_num):
         lst = self.lst_dct[lst_num]
@@ -87,9 +95,9 @@ class Lst:
                 self.create_position(pos)
 
     def start_app(self):
-        lst.rearrange_items()
-        lst.change_all_type_to_num()
-        lst.create_all_positions()
+        self.rearrange_items()
+        self.change_all_type_to_num()
+        self.create_all_positions()
         if self.lst == []:
             lst.create_defaults_positions()
             
