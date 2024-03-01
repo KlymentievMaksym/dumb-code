@@ -22,5 +22,27 @@ class Tests(unittest.TestCase):
         self.lst.start_app()
         self.assertEqual(self.lst.lst, [-16, -14, -12, '|', 13, 15, 17, '|', '|'])
 
+    def test_bad_input(self):
+        lst = crazylist.Lst()
+        lst.ask_for_input("a b s", "a b s", True)
+        lst.start_app(False)
+        self.assertEqual(lst.lst, ['|', '|', '|'])
+        lst = crazylist.Lst()
+        lst.ask_for_input("a b s", "-2 1 2 -1", True)
+        lst.start_app(False)
+        self.assertEqual(lst.lst, ['|', '|', '|'])
+        lst = crazylist.Lst()
+        lst.ask_for_input("12 41 -12 -9 0 13 14", "a b s", True)
+        lst.start_app(False)
+        self.assertEqual(lst.lst, [-12, '|', 13, 41, '|', 0, 12, 14, '|', -9])
+        lst = crazylist.Lst()
+        lst.ask_for_input("12 41 -12 -9 0 13 14", "-2 1 2", True)
+        lst.start_app(False)
+        self.assertEqual(lst.lst, [-12, '|', 13, 41, '|', 0, 12, 14])
+        lst = crazylist.Lst()
+        lst.ask_for_input("12 41 -12 -9 0 13 14", "1 1 1 1", True)
+        lst.start_app(False)
+        self.assertEqual(lst.lst, [13, 41, '|', 13, 41, '|', 13, 41, '|', 13, 41])
+
 if __name__ == '__main__':
     unittest.main()
