@@ -43,4 +43,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       - name: "Running unit test..."
-        run: python -m unittest test_crazylist.py
+        run: python test_crazylist.py
