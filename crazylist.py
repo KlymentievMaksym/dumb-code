@@ -1,32 +1,35 @@
 import sys
 
+
 class Lst:
     def __init__(self):
         self.lst = []
-        
-        self.lst_dct = {-2:[], -1:[], 1:[], 2:[]}
-        self.dct = {"negeven":-2, "negodd":-1, "odd":1, "even":2}
+
+        self.lst_dct = {-2: [], -1: [], 1: [], 2: []}
+        self.dct = {"negeven": -2, "negodd": -1, "odd": 1, "even": 2}
 
     def ask_for_input(self, list='', sort_method='', needed_auto=False):
         if not needed_auto:
-            self.list = input("Enter your list of INTEGER Numbers here (empty to exit): ").split()
+            self.list = input("Enter Numbers (empty to exit): \n>> ").split()
         else:
             self.list = list.split()
         if self.list == []:
             sys.exit()
-        
+
         if not needed_auto:
-            self.sort_method = input("Enter your type of sort here (default is 'negeven odd even negodd'|'-2 1 2 -1'): ").split()
+            self.sort_method = input("""Enter Type of sort:
+(Default is 'negeven odd even negodd'|'-2 1 2 -1')
+>> """).split()
         else:
             self.sort_method = sort_method.split()
         if self.sort_method == []:
             sys.exit()
 
     def sort(self, lst):
-        killer=1
+        killer = 1
         was_changed = True
         while was_changed:
-            was_changed  = False
+            was_changed = False
             for index in range(len(lst)-killer):
                 if lst[index] > lst[index+1]:
                     lst[index], lst[index+1] = lst[index+1], lst[index]
@@ -54,7 +57,8 @@ class Lst:
                     else:
                         self.add(number, -1)
             except ValueError:
-                if showP: print("Bad number element:", number, "| Skipping...")
+                if showP:
+                    print("Bad number element:", number, "| Skipping...")
 
     def change_all_type_to_num(self, showP=True):
         for item in self.sort_method.copy():
@@ -66,7 +70,8 @@ class Lst:
                     num_typ = self.dct[item]
                     self.sort_method[self.sort_method.index(item)] = num_typ
                 except KeyError:
-                    if showP: print("Bad key element:", item, "| Skipping...")
+                    if showP:
+                        print("Bad key element:", item, "| Skipping...")
                     self.sort_method.pop(self.sort_method.index(item))
 
     def create_position(self, lst_num, need_split=True):
@@ -74,16 +79,17 @@ class Lst:
             self.lst.extend(self.lst_dct[lst_num] + ['|'])
         else:
             self.lst.extend(self.lst_dct[lst_num])
-    
+
     def create_all_positions(self):
         for pos in range(len(self.sort_method)):
             if pos == len(self.sort_method)-1:
                 self.create_position(self.sort_method[pos], False)
             else:
                 self.create_position(self.sort_method[pos])
-    
+
     def create_defaults_positions(self, showP=True):
-        if showP: print("The list is empty because of bad type of sort entered | Using defaults...")
+        if showP:
+            print("The list is empty | Trying defaults...")
         for pos in [-2, 1, 2, -1]:
             if pos == -1:
                 self.create_position(pos, False)
@@ -96,7 +102,6 @@ class Lst:
         self.create_all_positions()
         if self.lst == []:
             self.create_defaults_positions(showP)
-            
 
     def display(self):
         self.lst_str = self.lst.copy()
