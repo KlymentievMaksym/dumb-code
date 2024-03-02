@@ -42,10 +42,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
-      # Install pytest
-      - name: Install dependencies
-        run: pip install pytest
-      - name: Test with pytest
-        run: pytest test_crazylist.py --doctest-modules --junitxml=junit/test-results-${{ matrix.python-version }}.xml
-      # - name: "Running unit test..."
-      #   run: python test_crazylist.py
+      - name: "Running unit test..."
+        run: python test_crazylist.py
