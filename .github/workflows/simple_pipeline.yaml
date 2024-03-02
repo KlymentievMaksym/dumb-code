@@ -42,5 +42,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
-      - name: "Running unit test..."
-        run: python test_crazylist.py
+      - name: Test with pytest  
+        run: |  
+          coverage run -m pytest  -v -s  
+      - name: Generate Coverage Report  
+        run: |  
+          coverage report -m
+
+      # - name: "Running unit test..."
+      #   run: python test_crazylist.py
